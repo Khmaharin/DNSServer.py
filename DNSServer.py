@@ -35,7 +35,7 @@ def encrypt_with_aes(input_string, password, salt):
     key = generate_aes_key(password, salt)
     f = Fernet(key)
     encrypted_data = f.encrypt(input_string.encode('utf-8')) #call the Fernet encrypt method
-    return encrypted_data    
+    return encrypted_data
 
 def decrypt_with_aes(encrypted_data, password, salt):
     key = generate_aes_key(password, salt)
@@ -43,7 +43,7 @@ def decrypt_with_aes(encrypted_data, password, salt):
     decrypted_data = f.decrypt(encrypted_data) #call the Fernet decrypt method
     return decrypted_data.decode('utf-8')
 
-salt = b'Tandor' # Remember it should be a byte-object
+salt = b'Tandon' # Remember it should be a byte-object
 password = 'mk10042@nyu.edu'
 input_string = 'AlwaysWatching'
 
@@ -66,16 +66,16 @@ dns_records = {
         dns.rdatatype.NS: 'ns.example.com.',
         dns.rdatatype.TXT: ('This is a TXT record',),
         dns.rdatatype.SOA: (
-            'ns1.example.com.', # mname
-            'admin.example.com.', # rname
-            2023081401, # serial
-            3600, # refresh
-            1800, # retry
-            604800, # expire
-            86400, # minimum
+            'ns1.example.com.', #mname
+            'admin.example.com.', #rname
+            2023081401, #serial
+            3600, #refresh
+            1800, #retry
+            604800, #expire
+            86400, #minimum
         ),
     },
-
+   
     # Add more records as needed (see assignment instructions!
     'safebank.com.': {
         dns.rdatatype.A: '192.168.1.102',
@@ -97,7 +97,6 @@ dns_records = {
         dns.rdatatype.TXT: (str(encrypted_value),),
     },
 }
-
 
 def run_dns_server():
     # Create a UDP socket and bind it to the local IP address (what unique IP address is used here, similar to webserver lab) and port (the standard port for DNS)
@@ -130,7 +129,7 @@ def run_dns_server():
                         rdata_list.append(MX(dns.rdataclass.IN, dns.rdatatype.MX, pref, server))
                 elif qtype == dns.rdatatype.SOA:
                     mname, rname, serial, refresh, retry, expire, minimum = answer_data # What is the record format? See dns_records dictionary. Assume we handle @, Class, TTL elsewhere. Do some research on SOA Records
-                    rdata = SOA(dns.rdataclass.IN, dns.rdatatype.SOA, mname, rname, serial, refresh, retry, expire, minimum) # follow format from previous line
+                    rdata = SOA(dns.rdataclass.IN, dns.rdatatype.SOA, mname, serial, refresh, retry, expire, minimum) # follow format from previous line
                     rdata_list.append(rdata)
                 else:
                     if isinstance(answer_data, str):
